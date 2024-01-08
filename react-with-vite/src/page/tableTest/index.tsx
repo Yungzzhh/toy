@@ -1,8 +1,12 @@
 import { Table } from "antd";
 import { axios } from "@/package/axios";
 import { useEffect, useState } from "react";
-import './tableTest.scss'
+import './index.scss'
 
+/**
+ * 
+ * @returns 虚拟列表使用
+ */
 const TableTest = () => {
   const [dataSource, setDataSource] = useState([]);
 

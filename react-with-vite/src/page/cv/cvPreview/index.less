@@ -1,0 +1,159 @@
+/**
+    index.less样式文件
+*/
+@media all {
+    .page-break {
+      display: none;
+    }
+  }
+  
+@media print {
+    html, body {
+      height: initial !important;
+      overflow: initial !important; // 如果出现无法分页加入此属性
+      -webkit-print-color-adjust: exact;
+    }
+}
+  
+@media print {
+    .page-break {
+      margin-top: 1rem;
+      display: block;
+      page-break-before: auto;
+    }
+}
+  
+@page {
+    size: auto;
+    margin: 16px 0; // 打印页样式
+}
+.cv-outside {
+    width: 962px;
+    height: 100vh;
+    border: 1px solid;
+    margin-right: 20px;
+    overflow-y: auto;
+}
+.cv-container {
+    width: 920px;
+    padding: 0 20px;
+    .introduction {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .introduction-name {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+        }
+        .introduction-info {
+            display: flex;
+            justify-content: center;
+            .info-detail {
+                display: flex;
+                .info-detail__svg {
+                    margin-right: 8px;
+                }
+                .info-detail__msg {
+                    margin-right: 12px;
+                }
+            }
+        }
+    }
+    .skill {
+        display: flex;
+        flex-direction: column;
+        .skill-detail {
+            font-weight: 500;
+            &::before {
+                content: "";
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: #2563eb; /* 设置圆点的颜色 */
+                margin: 0 10px 3px 10px;
+            }
+        }
+    }
+    .exp {
+        .experience {
+            &:not(:last-child) {
+                margin-bottom: 8px;
+            }
+            .experience-header {
+                display: flex;
+                justify-content: space-between;
+                font-weight: 600;
+                margin-bottom: 8px;
+                .experience-header__location {
+                    font-weight: 400;
+                    margin-left: 8px;
+                }
+            }
+            .experience-detail {
+                font-weight: 500;
+                &::before {
+                    content: "";
+                    display: inline-block;
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background-color: #2563eb; /* 设置圆点的颜色 */
+                    margin: 0 10px 3px 10px;
+                }
+            }
+        }
+    }
+    .project {
+        .project-item {
+            margin-bottom: 16px;
+            .project-item__name {
+                font-size: 18px;
+                font-weight: 600;
+            }
+            .project-item__desc {
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .project-item__segment {
+                margin-bottom: 8px;
+            }
+        }
+    }
+    .edu {
+        .edu-detail {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+.header {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    color: rgb(37, 99, 235);
+    background: rgb(219 234 254);
+    padding: 4px 12px;
+    margin: 16px 0;
+    font-size: 20px;
+    border-left: 4px solid rgb(37, 99, 235);
+    .header-icon {
+        margin-right: 8px;
+    }
+    .header-name {
+        font-weight: 600;
+    }
+}
+
+.part-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.fw-600 {
+    font-weight: 600;
+}

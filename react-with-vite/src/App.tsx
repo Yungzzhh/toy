@@ -1,16 +1,31 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { Suspense, lazy, useEffect } from "react";
 import "./App.css";
-import { Button } from "antd";
+// import { Button } from "antd";
 import { axios } from "@/package/axios";
-import TableTest from "./page/TableTest";
+import TableTest from "./page/tableTest";
 import LazyLoadImage from "./hooks/lazyload";
 import flower from "@/assets/images/flower.jpg";
+import "./App.scss";
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+} from "react-router-dom";
+import CV from "@/page/cv";
+import LazyLoadComp from "./page/lazyLoadComp";
+
+interface RouteLink {
+  path: string;
+  pathName: string;
+  element: JSX.Element;
+  children?: RouteLink[];
+}
+// React 组件懒加载
+const LazyloadRoute = lazy(() => import("@/page/lazyLoadRoute"));
 
 function App() {
-  const [count, setCount] = useState(0);
-
   useEffect(() => {
     getList();
   }, []);
@@ -20,33 +35,82 @@ function App() {
     console.log(res);
   };
 
+  const routerLink: RouteLink[] = [
+    {
+      path: "/",
+      pathName: "Home",
+      element: <DefaultPage />,
+    },
+    {
+      path: "/table",
+      pathName: "table",
+      element: <TableTest />,
+    },
+    {
+      path: "/lazyloadImg",
+      pathName: "lazyloadImg",
+      element: <LazyLoadImageTest />,
+    },
+    {
+      path: "/cv",
+      pathName: "cv",
+      element: <CV />,
+    },
+    {
+      path: "/lazyloadComp",
+      pathName: "lazyloadComp",
+      element: <LazyLoadComp />,
+    },
+    {
+      path: "/lazyloadRoute",
+      pathName: "lazyloadRoute",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <LazyloadRoute />
+        </Suspense>
+      ),
+    },
+  ];
+
+  return (
+    <Router>
+      <div>
+        <div className="router-link">
+          {routerLink.map((route) => (
+            <Link
+              className="router-link__text"
+              to={route.path}
+              key={route.path}
+            >
+              {route.pathName}
+            </Link>
+          ))}
+        </div>
+
+        <Routes>
+          {routerLink.map((route) => (
+            <Route path={route.path} element={route.element} key={route.path} />
+          ))}
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+function LazyLoadImageTest() {
+  return <LazyLoadImage src={flower} alt="" />;
+}
+
+function DefaultPage() {
   return (
     <>
-      <div className="main">
-        <Button>Button</Button>
-        <TableTest></TableTest>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <LazyLoadImage src={flower} alt="" />
+      <div>this is a default page</div>
     </>
   );
+}
+
+function Loading() {
+  return <>route loading...</>;
 }
 
 export default App;
